@@ -1,0 +1,7 @@
+server: https://my-kubernetes-domain.com:9345
+token: my-shared-secret
+tls-san:
+  - my-kubernetes-domain.com
+  - another-kubernetes-domain.com
+# node-taint:
+#   - "CriticalAddonsOnly=true:NoExecute"
