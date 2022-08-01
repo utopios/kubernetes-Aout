@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: result-service
+  namespace: tp-kubernetes
+spec:
+  type: NodePort
+  selector:
+    name: result-app
+  ports:
+    #--port du service
+    - port: 4000
+    #--- port du conteneur
+      targetPort: 4000
+      nodePort: 30006
+      name: result-app-port

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tp-config-map
+  namespace: tp-kubernetes
+data:
+  POSTGRE_USER: postgres

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: tp-kubernetes
+spec:
+  type: ClusterIP
+  selector:
+    name: redis
+  ports:
+    #--port du service
+    - port: 6379
+    #--- port du conteneur
+      targetPort: 6379
+      name: redis-port

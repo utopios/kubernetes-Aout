@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-deployment
+  namespace: tp-kubernetes
+  labels:
+    name: result-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: result-app
+  template:
+    metadata:
+      labels:
+        name: result-app
+    spec:
+      containers:
+        - name: result
+          image: result
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "128Mi"
+      

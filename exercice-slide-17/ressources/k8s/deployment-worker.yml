@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  namespace: tp-kubernetes
+  labels:
+    name: worker-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: worker
+  template:
+    metadata:
+      labels:
+        name: worker
+    spec:
+      nodeSelector:
+        ssd: "true"
+      containers:
+        - name: worker
+          image: worker
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "128Mi"

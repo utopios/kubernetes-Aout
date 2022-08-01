@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote-service
+  namespace: tp-kubernetes
+spec:
+  type: NodePort
+  selector:
+    name: vote-app
+  ports:
+    #--port du service
+    - port: 80
+    #--- port du conteneur
+      targetPort: 80
+      nodePort: 30005
+      name: vote-app-port
