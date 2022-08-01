@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: mysql-network-policy
+  namespace: monitoring-elk
+spec:
+  podSelector:
+    matchLabels:
+      name: mysql
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: client-mysql
+      ports:
+      - port: 3306
+        protocol: TCP
+    

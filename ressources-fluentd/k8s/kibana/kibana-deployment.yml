@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: monitoring-elk
+  labels:
+    name: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: kibana
+  template:
+    metadata:
+      labels:
+        name: kibana
+        app: client-elasticsearch
+    spec:
+      containers:
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana:7.16.1
+        resources:
+          limits:
+            cpu: 100m
+            memory: "128Mi"
+        env:
+          - name: ELASTICSEARCH_URL
+            value: http://service-elasticsearch:9200
+        ports:
+        - containerPort: 5601

@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: elasticsearch-network-policy
+  namespace: monitoring-elk
+spec:
+  podSelector:
+    matchLabels:
+      name: elasticsearch
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: client-elasticsearch
+      ports:
+      - port: 9200
+        protocol: TCP
+      - port: 9300
+        protocol: TCP

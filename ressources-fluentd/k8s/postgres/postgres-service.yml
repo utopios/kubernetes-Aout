@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-postgres
+  namespace: monitoring-elk
+spec:
+  type: ClusterIP
+  selector:
+    name: postgres
+  ports:
+    #--port du service interne
+    - port: 5432
+    #--- port du conteneur
+      targetPort: 5432
+      name: postgres-port

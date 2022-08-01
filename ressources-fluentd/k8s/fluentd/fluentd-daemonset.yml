@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  namespace: monitoring-elk
+  labels:
+    name: fluentd
+spec:
+  selector:
+    matchLabels:
+      name: fluentd
+  template:
+    metadata:
+      labels:
+        name: fluentd
+        app: client-elasticsearch
+    spec:
+      serviceAccount: fluentd
+      serviceAccountName: fluentd
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      containers:
+        - name: fluentd
+          image: fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch
+          volumeMounts:
+          - name: varlog
+            mountPath: /var/log
+            readOnly: true
+          - name: containerd
+            mountPath: /var/log/pods
+            readOnly: true
+          env:
+            - name: FLUENT_ELASTICSEARCH_HOST
+              value: "service-elasticsearch"
+            - name: FLUENT_ELASTICSEARCH_PORT
+              value: "9200"
+            - name: FLUENT_ELASTICSEARCH_SCHEME
+              value: "http"
+            - name: FLUENT_ELASTICSEARCH_SSL_VERIFY
+              value: "true"
+            - name: FLUENT_ELASTICSEARCH_SSL_VERSION
+              value: "TLSv1_2"
+            - name: FLUENT_ELASTICSEARCH_USER
+              value: "admin"
+            - name: FLUENT_ELASTICSEARCH_PASSWORD
+              value: "elasticadmin"
+            - name: LOGZIO_TOKEN
+              value: "ThisIsASuperLongToken"
+            - name: LOGZIO_LOGTYPE
+              value: "kubernetes"
+            - name: FLUENT_CONTAINER_TAIL_PARSER_TYPE
+              value: "/^(?<time>.+) (?<stream>stdout|stderr) [^ ]* (?<log>.*)$/"
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+      volumes:
+        - name: varlog
+          hostPath:
+            path: /var/log
+        - name: containerd
+          hostPath:
+            path: /var/log/pods
