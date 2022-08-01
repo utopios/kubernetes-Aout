@@ -1,0 +1,8 @@
+apiVersion: crds.example.com/v1
+kind: CustomApp
+metadata:
+  name: app-1
+spec:
+  app-name: app-1
+  app-version: '1'
+  release-count: 1

@@ -1,0 +1,30 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: web.crds.utopios.net
+spec:
+  group: crds.utopios.net
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+                stack:
+                  type: string
+                release-count:
+                  type: integer
+  scope: Namespaced
+  names:
+    plural: web-sites
+    singular: web-site
+    kind: WebSite
+    shortNames:
+      - "ws"

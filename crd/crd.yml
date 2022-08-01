@@ -1,0 +1,28 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: custom-apps.crds.example.com
+spec:
+  group: crds.example.com
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                app-name:
+                  type: string
+                app-version:
+                  type: string
+                release-count:
+                  type: integer
+  scope: Namespaced
+  names:
+    plural: custom-apps
+    singular: custom-app
+    kind: CustomApp
