@@ -21,7 +21,7 @@ spec:
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
-              path: /healty
+              path: /
               port: 80
           ports:
             - containerPort: 80

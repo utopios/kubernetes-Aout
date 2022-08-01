@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = Worker
+build_property.ProjectDir = /Users/ihab/Downloads/kubernetes-mai-2022-main/TP-kubernetes/worker/src/Worker/

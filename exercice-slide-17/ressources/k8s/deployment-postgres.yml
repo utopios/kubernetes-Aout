@@ -29,7 +29,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: tp-config-map
-                  key: POSTGRES_USER
+                  key: POSTGRE_USER
             # -- A ne pas faire pour des raisons de sécurité => sans secret
             # - name: POSTGRES_PASSWORD
             #   value: postgres
